@@ -1,6 +1,6 @@
 # Disease Detection App
 
-A React Native mobile application that uses machine learning to detect diseases from images. The app can identify various conditions including skin diseases, plant diseases, and medical conditions using a trained TensorFlow Lite model.
+A React Native mobile application that uses machine learning to detect diseases from images. The app can identify various conditions including plant diseases using a trained TensorFlow Lite model.
 
 ## Features
 
@@ -22,11 +22,6 @@ A React Native mobile application that uses machine learning to detect diseases 
 ## Installation
 
 ### 1. Clone the repository
-
-```bash
-git clone https://github.com/yourusername/disease-detection-app.git
-cd disease-detection-app
-```
 
 ### 2. Install dependencies
 
@@ -197,8 +192,3 @@ disease-detection-app/
 
 [MIT License](LICENSE)
 
-## Acknowledgements
-
-- TensorFlow for the machine learning framework
-- Expo for the React Native development platform
-- The open-source community for various libraries used in this project
