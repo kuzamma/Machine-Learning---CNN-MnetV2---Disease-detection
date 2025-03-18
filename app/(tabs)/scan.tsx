@@ -51,6 +51,13 @@ export default function ScanScreen() {
     try {
       // Now run the actual prediction
       const results = await predict(image);
+      console.log('Prediction results:', results);
+      
+      // Validate results
+      if (!results || !Array.isArray(results) || results.length === 0) {
+        throw new Error('No valid prediction results received');
+      }
+      
       setPredictions(results);
       setProcessingComplete(true);
       
@@ -59,8 +66,9 @@ export default function ScanScreen() {
         imageUri: image,
         predictions: results,
       });
-    } catch (err) {
-      Alert.alert('Error', 'Failed to analyze image. Please try again.');
+    } catch (err: any) {
+      console.error('Processing error:', err);
+      Alert.alert('Error', err.message || 'Failed to analyze image. Please try again.');
     } finally {
       setAnalyzing(false);
     }
@@ -180,62 +188,57 @@ export default function ScanScreen() {
   );
 }
 
-
-
-
-
-
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: colors.background,
-    },
-    scrollContent: {
-      flexGrow: 1,
-      padding: 16,
-    },
-    processingContainer: {
-      flex: 1,
-      padding: 24,
-    },
-    processingTitle: {
-      fontSize: 20,
-      fontWeight: '600',
-      color: colors.text,
-      marginBottom: 24,
-      textAlign: 'center',
-    },
-    previewContainer: {
-      flex: 1,
-      alignItems: 'center',
-    },
-    modelLoadingText: {
-      marginTop: 12,
-      fontSize: 14,
-      color: colors.textLight,
-      textAlign: 'center',
-    },
-    errorText: {
-      marginTop: 12,
-      fontSize: 14,
-      color: colors.error,
-      textAlign: 'center',
-    },
-    resultsContainer: {
-      flex: 1,
-    },
-    scanAgainButton: {
-      marginTop: 16,
-    },
-    footer: {
-      flexDirection: 'row',
-      padding: 16,
-      backgroundColor: colors.white,
-      borderTopWidth: 1,
-      borderTopColor: colors.border,
-    },
-    footerButton: {
-      flex: 1,
-      marginHorizontal: 8, 
-    },
-  }); 
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    padding: 16,
+  },
+  processingContainer: {
+    flex: 1,
+    padding: 24,
+  },
+  processingTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: colors.text,
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  previewContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  modelLoadingText: {
+    marginTop: 12,
+    fontSize: 14,
+    color: colors.textLight,
+    textAlign: 'center',
+  },
+  errorText: {
+    marginTop: 12,
+    fontSize: 14,
+    color: colors.error,
+    textAlign: 'center',
+  },
+  resultsContainer: {
+    flex: 1,
+  },
+  scanAgainButton: {
+    marginTop: 16,
+  },
+  footer: {
+    flexDirection: 'row',
+    padding: 16,
+    backgroundColor: colors.white,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  footerButton: {
+    flex: 1,
+    marginHorizontal: 8,
+  },
+});

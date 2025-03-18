@@ -10,7 +10,7 @@ export interface Disease {
   export const diseases: Disease[] = [
   
     {
-      id: 'plant_leaf_blight',
+      id: 'melanoma',
       name: 'Plant Leaf Blight',
       description: 'Leaf blight is a common disease in plants caused by fungi or bacteria that affects the leaves, causing them to wither and die.',
       symptoms: [
@@ -24,7 +24,7 @@ export interface Disease {
       imageUrl: 'https://images.unsplash.com/photo-1598512199776-e0e1a84efadc?q=80&w=1000'
     },
     {
-      id: 'plant_leaf_rust',
+      id: 'basal_cell_carcinoma',
       name: 'Plant Leaf Rust',
       description: 'Rust is a fungal disease that affects various plants, causing rusty spots on leaves and stems.',
       symptoms: [
@@ -38,20 +38,7 @@ export interface Disease {
       imageUrl: 'https://images.unsplash.com/photo-1598512199776-e0e1a84efadc?q=80&w=1000'
     },
     
-    {
-      id: 'pneumonia',
-      name: 'test',
-      description: 'Pneumonia is an infection that inflames the air sacs in one or both lungs. The air sacs may fill with fluid or pus, causing cough with phlegm or pus, fever, chills, and difficulty breathing.',
-      symptoms: [
-        'Chest pain when breathing or coughing',
-        'Confusion or changes in mental awareness (in adults age 65 and older)',
-        'Cough, which may produce phlegm',
-        'Fatigue',
-        'Fever, sweating and shaking chills'
-      ],
-      treatment: 'Treatment includes antibiotics for bacterial pneumonia, antiviral medications for viral pneumonia, fever reducers, and cough medicine.',
-      imageUrl: 'https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?q=80&w=1000'
-    }
+    
   ];
   
   export const getDiseaseById = (id: string): Disease | undefined => {
