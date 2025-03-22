@@ -10,8 +10,8 @@ export interface Disease {
   export const diseases: Disease[] = [
   
     {
-      id: 'melanoma',
-      name: 'Plant Leaf Blight',
+      id: 'Blight',
+      name: 'Leaf Blight',
       description: 'Leaf blight is a common disease in plants caused by fungi or bacteria that affects the leaves, causing them to wither and die.',
       symptoms: [
         'Brown or black spots on leaves',
@@ -24,8 +24,8 @@ export interface Disease {
       imageUrl: 'https://images.unsplash.com/photo-1598512199776-e0e1a84efadc?q=80&w=1000'
     },
     {
-      id: 'basal_cell_carcinoma',
-      name: 'Plant Leaf Rust',
+      id: 'Algal',
+      name: 'Algal leaf spot',
       description: 'Rust is a fungal disease that affects various plants, causing rusty spots on leaves and stems.',
       symptoms: [
         'Rusty, orange, or reddish-brown spots on leaves',

@@ -164,13 +164,7 @@ export default function ResultDetailsScreen() {
             />
           </Card>
           
-          <View style={styles.disclaimerContainer}>
-            <AlertTriangle size={16} color={colors.warning} />
-            <Text style={styles.disclaimerText}>
-              This analysis is based on machine learning and should not be considered a medical diagnosis. 
-              Please consult a healthcare professional for proper evaluation.
-            </Text>
-          </View>
+         
           
           <Button
             title="Scan New Image"

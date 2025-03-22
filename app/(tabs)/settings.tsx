@@ -191,12 +191,7 @@ export default function SettingsScreen() {
           </TouchableOpacity>
         </Card>
 
-        <View style={styles.disclaimerContainer}>
-          <AlertTriangle size={16} color={colors.warning} />
-          <Text style={styles.disclaimerText}>
-            This app is for educational purposes only and should not replace professional medical advice. Always consult with a healthcare professional for medical concerns.
-          </Text>
-        </View>
+       
 
         <Text style={styles.versionText}>Version 1.0.0</Text>
       </ScrollView>

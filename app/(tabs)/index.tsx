@@ -12,14 +12,14 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container} edges={['bottom']}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Text style={styles.title}>Disease Detection</Text>
+          <Text style={styles.title}>Plant Disease Detection</Text>
           <Text style={styles.subtitle}>
-            Detect diseases from images using AI
+            Detect diseases from images using Convolutional Neural Network (CNN)
           </Text>
         </View>
         <View style={styles.imageContainer}>
           <Image 
-            source={{ uri: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000' }} 
+            source={require('@/assets/images/cover.jpg')} // Use require for local images
             style={styles.image}
             resizeMode="cover"
           />
@@ -60,9 +60,9 @@ export default function HomeScreen() {
               <Text style={styles.stepNumberText}>2</Text>
             </View>
             <View style={styles.stepContent}>
-              <Text style={styles.stepTitle}>AI Analysis</Text>
+              <Text style={styles.stepTitle}> Analysis</Text>
               <Text style={styles.stepDescription}>
-                Our AI model analyzes the image to detect potential diseases
+                Our model analyzes the image to detect potential diseases
               </Text>
             </View>
           </View>
@@ -81,12 +81,7 @@ export default function HomeScreen() {
         </Card>
 
 
-        <View style={styles.disclaimerContainer}>
-          <Info size={16} color={colors.textLight} />
-          <Text style={styles.disclaimerText}>
-            This app is for educational purposes only and should not replace professional medical advice.
-          </Text>
-        </View>
+        
       </ScrollView>
     </SafeAreaView>
   );
