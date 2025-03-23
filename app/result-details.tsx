@@ -48,11 +48,61 @@ export default function ResultDetailsScreen() {
     });
   };
 
-  // Calculate total confidence (should be <= 1.0)
-  const totalConfidence = result.predictions.reduce(
-    (sum, prediction) => sum + prediction.probability, 
-    0
-  );
+  // Safety check for predictions array
+  if (!result.predictions || !Array.isArray(result.predictions) || result.predictions.length === 0) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>No prediction data available</Text>
+          <Button 
+            title="Go Back" 
+            onPress={() => router.back()} 
+            style={styles.backButton}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  // Get only the top prediction
+  const topPrediction = result.predictions[0];
+  
+  // Safety check for prediction object
+  if (!topPrediction || !topPrediction.className) {
+    console.warn('Invalid prediction object:', topPrediction);
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>Invalid prediction data</Text>
+          <Button 
+            title="Go Back" 
+            onPress={() => router.back()} 
+            style={styles.backButton}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
+  
+  const disease = getDiseaseById(topPrediction.className);
+  if (!disease) {
+    console.warn(`Disease not found for className: ${topPrediction.className}`);
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>Disease information not found</Text>
+          <Button 
+            title="Go Back" 
+            onPress={() => router.back()} 
+            style={styles.backButton}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  // Ensure confidence is between 0 and 1
+  const safeConfidence = Math.max(0, Math.min(1, topPrediction.probability));
 
   return (
     <>
@@ -78,73 +128,43 @@ export default function ResultDetailsScreen() {
             </View>
           </View>
 
-          <Text style={styles.sectionTitle}>Analysis Results</Text>
+          <Text style={styles.sectionTitle}>Analysis Result</Text>
           
-          {result.predictions.map((prediction, index) => {
-            const disease = getDiseaseById(prediction.className);
-            if (!disease) return null;
+          <Card style={styles.predictionCard}>
+            <View style={styles.predictionHeader}>
+              <Text style={styles.diseaseName}>{disease.name}</Text>
+              <Text style={styles.confidenceText}>
+                {Math.round(safeConfidence * 100)}%
+              </Text>
+            </View>
             
-            // Calculate relative confidence for visualization
-            // This shows what percentage of the total confidence this prediction represents
-            const relativeConfidence = totalConfidence > 0 
-              ? prediction.probability / totalConfidence 
-              : 0;
+            <ConfidenceBar confidence={safeConfidence} />
             
-            return (
-              <Card key={index} style={[
-                styles.predictionCard,
-                index === 0 && styles.topPredictionCard
-              ]}>
-                <View style={styles.predictionHeader}>
-                  <Text style={styles.diseaseName}>
-                    {disease.name}
-                    {index === 0 && <Text style={styles.topMatch}> (Top Match)</Text>}
-                  </Text>
-                  <Text style={styles.confidenceText}>
-                    {Math.round(prediction.probability * 100)}%
-                  </Text>
-                </View>
-                
-                <ConfidenceBar confidence={prediction.probability} />
-                
-                <Text style={styles.diseaseDescription} numberOfLines={3}>
-                  {disease.description}
-                </Text>
-                
-                <View style={styles.symptomsContainer}>
-                  <Text style={styles.symptomsTitle}>Key Symptoms:</Text>
-                  <View style={styles.symptomsList}>
-                    {disease.symptoms.slice(0, 3).map((symptom, i) => (
-                      <View key={i} style={styles.symptomItem}>
-                        <View style={styles.symptomBullet} />
-                        <Text style={styles.symptomText}>{symptom}</Text>
-                      </View>
-                    ))}
-                    {disease.symptoms.length > 3 && (
-                      <Text style={styles.moreSymptoms}>+{disease.symptoms.length - 3} more</Text>
-                    )}
-                  </View>
-                </View>
-                
-                <Button
-                  title="View Complete Details"
-                  onPress={() => handleViewDiseaseDetails(disease.id)}
-                  variant={index === 0 ? "primary" : "outline"}
-                  size="small"
-                  icon={<ChevronRight size={16} color={index === 0 ? colors.white : colors.primary} />}
-                  style={styles.viewDetailsButton}
-                />
-              </Card>
-            );
-          })}
-          
-          <View style={styles.disclaimerContainer}>
-            <AlertTriangle size={16} color={colors.warning} />
-            <Text style={styles.disclaimerText}>
-              This analysis is based on machine learning and should not be considered a medical diagnosis. 
-              Please consult a healthcare professional for proper evaluation.
+            <Text style={styles.diseaseDescription}>
+              {disease.description}
             </Text>
-          </View>
+            
+            <View style={styles.symptomsContainer}>
+              <Text style={styles.symptomsTitle}>Key Symptoms:</Text>
+              <View style={styles.symptomsList}>
+                {disease.symptoms.map((symptom, i) => (
+                  <View key={i} style={styles.symptomItem}>
+                    <View style={styles.symptomBullet} />
+                    <Text style={styles.symptomText}>{symptom}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+            
+            <Button
+              title="View Complete Details"
+              onPress={() => handleViewDiseaseDetails(disease.id)}
+              icon={<ChevronRight size={16} color={colors.white} />}
+              style={styles.viewDetailsButton}
+            />
+          </Card>
+          
+         
           
           <Button
             title="Scan New Image"
@@ -213,8 +233,6 @@ const styles = StyleSheet.create({
   predictionCard: {
     marginBottom: 16,
     padding: 16,
-  },
-  topPredictionCard: {
     borderLeftWidth: 4,
     borderLeftColor: colors.primary,
   },
@@ -228,11 +246,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: colors.text,
-  },
-  topMatch: {
-    fontSize: 14,
-    fontWeight: '400',
-    color: colors.primary,
   },
   confidenceText: {
     fontSize: 16,
@@ -276,11 +289,6 @@ const styles = StyleSheet.create({
     color: colors.text,
     flex: 1,
   },
-  moreSymptoms: {
-    fontSize: 14,
-    color: colors.primary,
-    marginTop: 4,
-  },
   viewDetailsButton: {
     alignSelf: 'flex-start',
   },
@@ -303,4 +311,4 @@ const styles = StyleSheet.create({
   scanButton: {
     marginBottom: 24,
   },
-}); 
+});

@@ -15,6 +15,9 @@ interface DiseaseCardProps {
 export default function DiseaseCard({ disease, confidence }: DiseaseCardProps) {
   const router = useRouter();
 
+  // Ensure confidence is between 0 and 1
+  const safeConfidence = Math.max(0, Math.min(1, confidence));
+
   const handlePress = () => {
     router.push({
       pathname: '/disease-details',
@@ -35,7 +38,7 @@ export default function DiseaseCard({ disease, confidence }: DiseaseCardProps) {
           </View>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{disease.name}</Text>
-            <ConfidenceBar confidence={confidence} />
+            <ConfidenceBar confidence={safeConfidence} />
           </View>
         </View>
         

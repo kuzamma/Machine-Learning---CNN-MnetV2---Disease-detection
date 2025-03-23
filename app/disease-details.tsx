@@ -53,12 +53,7 @@ export default function DiseaseDetailsScreen() {
             <Text style={styles.treatmentText}>{disease.treatment}</Text>
           </Card>
 
-          <View style={styles.disclaimerContainer}>
-            <AlertTriangle size={16} color={colors.warning} />
-            <Text style={styles.disclaimerText}>
-              This information is for educational purposes only. Always consult with a healthcare professional for proper diagnosis and treatment.
-            </Text>
-          </View>
+          
         </ScrollView>
       </SafeAreaView>
     </>

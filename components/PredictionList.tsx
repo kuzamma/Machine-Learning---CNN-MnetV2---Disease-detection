@@ -12,7 +12,7 @@ interface PredictionListProps {
 }
 
 export default function PredictionList({ predictions, onSelectDisease }: PredictionListProps) {
-  if (predictions.length === 0) {
+  if (!predictions || predictions.length === 0) {
     return (
       <View style={styles.emptyContainer}>
         <Text style={styles.emptyText}>No predictions available</Text>
@@ -20,49 +20,56 @@ export default function PredictionList({ predictions, onSelectDisease }: Predict
     );
   }
 
+  // Get only the top prediction with highest confidence
+  const topPrediction = predictions[0];
+  
+  // Safety check to ensure prediction has className
+  if (!topPrediction || !topPrediction.className) {
+    console.warn('Invalid prediction object:', topPrediction);
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>Invalid prediction data</Text>
+      </View>
+    );
+  }
+  
+  const disease = getDiseaseById(topPrediction.className);
+  if (!disease) {
+    console.warn(`Disease not found for className: ${topPrediction.className}`);
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>Disease information not found</Text>
+      </View>
+    );
+  }
+  
+  // Ensure confidence is between 0 and 1
+  const safeConfidence = Math.max(0, Math.min(1, topPrediction.probability));
+  
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Analysis Results</Text>
+      <Text style={styles.title}>Analysis Result</Text>
       
-      {predictions.map((prediction, index) => {
-        const disease = getDiseaseById(prediction.className);
-        if (!disease) return null;
-        
-        const isTopPrediction = index === 0;
-        
-        return (
-          <TouchableOpacity
-            key={prediction.className}
-            style={[
-              styles.predictionItem,
-              isTopPrediction && styles.topPrediction
-            ]}
-            onPress={() => onSelectDisease(prediction.className)}
-            activeOpacity={0.7}
-          >
-            <View style={styles.predictionContent}>
-              <View style={styles.predictionHeader}>
-                <Text style={[
-                  styles.diseaseName,
-                  isTopPrediction && styles.topDiseaseName
-                ]}>
-                  {disease.name}
-                  {isTopPrediction && <Text style={styles.topMatch}> (Top Match)</Text>}
-                </Text>
-                <ChevronRight size={20} color={colors.textLight} />
-              </View>
-              
-              <ConfidenceBar confidence={prediction.probability} />
-              
-              {isTopPrediction && (
-                <Text style={styles.description} numberOfLines={2}>
-                  {disease.description}
-                </Text>
-              )}
-            </View>
-          </TouchableOpacity>
-        );
-      })}
+      <TouchableOpacity
+        style={styles.predictionItem}
+        onPress={() => onSelectDisease(topPrediction.className)}
+        activeOpacity={0.7}
+      >
+        <View style={styles.predictionContent}>
+          <View style={styles.predictionHeader}>
+            <Text style={styles.diseaseName}>
+              {disease.name}
+            </Text>
+            <ChevronRight size={20} color={colors.textLight} />
+          </View>
+          
+          <ConfidenceBar confidence={safeConfidence} />
+          
+          <Text style={styles.description} numberOfLines={3}>
+            {disease.description}
+          </Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -87,8 +94,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-  },
-  topPrediction: {
     borderLeftWidth: 4,
     borderLeftColor: colors.primary,
   },
@@ -102,17 +107,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   diseaseName: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
     color: colors.text,
-  },
-  topDiseaseName: {
-    fontSize: 18,
-  },
-  topMatch: {
-    fontSize: 14,
-    fontWeight: '400',
-    color: colors.primary,
   },
   description: {
     fontSize: 14,

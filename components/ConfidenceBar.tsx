@@ -10,6 +10,9 @@ export default function ConfidenceBar({ confidence }: ConfidenceBarProps) {
   // Ensure confidence is between 0 and 1
   const safeConfidence = Math.max(0, Math.min(1, confidence));
   
+  // Format confidence as a percentage with two decimal places
+  const confidencePercentage = (safeConfidence * 100).toFixed(2);
+
   // Determine color based on confidence level
   const getColor = () => {
     if (safeConfidence < 0.4) return colors.error;
@@ -21,7 +24,7 @@ export default function ConfidenceBar({ confidence }: ConfidenceBarProps) {
     <View style={styles.container}>
       <View style={styles.labelContainer}>
         <Text style={styles.label}>Confidence</Text>
-        <Text style={styles.percentage}>{Math.round(safeConfidence * 100)}%</Text>
+        <Text style={styles.percentage}>{confidencePercentage}%</Text>
       </View>
       <View style={styles.barBackground}>
         <View 
