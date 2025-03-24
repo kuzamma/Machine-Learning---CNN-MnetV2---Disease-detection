@@ -12,29 +12,28 @@ export interface Disease {
     {
       id: 'Blight',
       name: 'Leaf Blight',
-      description: 'Leaf blight is a common disease in plants caused by fungi or bacteria that affects the leaves, causing them to wither and die.',
+      description: 'Leaf blight is a fungal or bacterial disease that causes severe damage to lanzones trees, affecting the leaves and reducing fruit yield. It thrives in humid and wet conditions, spreading rapidly if untreated.',
       symptoms: [
-        'Brown or black spots on leaves',
-        'Yellowing of leaves',
-        'Wilting',
-        'Leaf drop',
-        'Stunted growth'
+        'Irregular brown or black spots on leaves',
+    'Yellowing and curling of leaves',
+    'Wilting and premature leaf drop',
+    'Leaves with water-soaked lesions that expand over time',
+    'Defoliation and stunted growth in severe cases'
       ],
-      treatment: 'Treatment includes removing affected leaves, applying fungicides, improving air circulation, and avoiding overhead watering.',
+      treatment: 'Use copper-based fungicides or Mancozeb to control fungal infections. Water at the base of plants to keep foliage dry.',
       imageUrl: 'https://images.unsplash.com/photo-1598512199776-e0e1a84efadc?q=80&w=1000'
     },
     {
       id: 'Algal',
       name: 'Algal leaf spot',
-      description: 'Rust is a fungal disease that affects various plants, causing rusty spots on leaves and stems.',
+      description: 'Algal leaf spot, also known as red rust, is caused by parasitic algae that infect the leaves, twigs, and branches of lanzones trees. It thrives in warm, humid environments and appears as raised, orange to reddish-brown spots on the foliage. While not usually fatal, severe infections can weaken trees and reduce fruit yield.',
       symptoms: [
-        'Rusty, orange, or reddish-brown spots on leaves',
-        'Powdery pustules on the undersides of leaves',
-        'Yellowing and wilting of leaves',
-        'Premature leaf drop',
-        'Stunted growth'
+        'Circular orange, reddish-brown, or rust-colored spots on leaves',
+        'Spots may have a velvety or powdery texture',
+        'Yellowing and premature leaf drop in severe cases',
+        'Can spread to twigs and branches, causing cracking and dieback'
       ],
-      treatment: 'Treatment includes removing affected parts, applying fungicides, improving air circulation, and avoiding overhead watering.',
+      treatment: 'Treatment includes removing affected parts, applying fungicides, improving air circulation, and Trim overcrowded branches to reduce moisture retention.',
       imageUrl: 'https://images.unsplash.com/photo-1598512199776-e0e1a84efadc?q=80&w=1000'
     },
     

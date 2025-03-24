@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Disease Detection",
-    "slug": "expo-app",
+    "slug": "disease",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -34,8 +34,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "552456e2-2866-4abd-a65f-c91b4e7d9539"
+        "projectId": "6361276e-15ba-4ee5-8206-99944be3410b"
       }
-    }
+    },
+    "owner": "kuzama"
   }
 }
