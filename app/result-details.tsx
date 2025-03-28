@@ -90,7 +90,7 @@ export default function ResultDetailsScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>Disease information not found</Text>
+          <Text style={styles.errorText}>Disease not found</Text>
           <Button 
             title="Go Back" 
             onPress={() => router.back()} 
