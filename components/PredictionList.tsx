@@ -36,7 +36,7 @@ export default function PredictionList({ predictions, onSelectDisease }: Predict
   
   const disease = getDiseaseById(topPrediction.className);
   if (!disease) {
-    console.warn(`Disease not found for className: ${topPrediction.className}`);
+    console.warn(`Disease not found: ${topPrediction.className}`);
     return (
       <View style={styles.emptyContainer}>
         <Text style={styles.emptyText}>Disease information not found</Text>

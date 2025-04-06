@@ -1,13 +1,4 @@
-/**
- * Utility functions for handling confidence values
- */
 
-/**
-
- * 
- * @param confidence Raw confidence value (0-1)
- * @returns Adjusted confidence value (0-1)
- */
 export const adjustConfidence = (confidence: number): number => {
     // Ensure confidence is between 0 and 1
     const safeConfidence = Math.max(0, Math.min(1, confidence));

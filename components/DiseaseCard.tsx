@@ -39,7 +39,7 @@ export default function DiseaseCard({ disease, confidence }: DiseaseCardProps) {
           </View>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{disease.name}</Text>
-            <ConfidenceBar confidence={adjustedConfidence} />
+            {/*<ConfidenceBar confidence={adjustedConfidence} />*/}
           </View>
         </View>
         
