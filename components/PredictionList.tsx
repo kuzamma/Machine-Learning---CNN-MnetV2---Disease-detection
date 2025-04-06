@@ -5,6 +5,7 @@ import colors from '@/constants/colors';
 import { Prediction } from '@/hooks/use-tensorflow';
 import { getDiseaseById } from '@/constants/diseases';
 import ConfidenceBar from './ConfidenceBar';
+import { adjustConfidence } from '@/utils/confidence-utils';
 
 interface PredictionListProps {
   predictions: Prediction[];
@@ -43,8 +44,8 @@ export default function PredictionList({ predictions, onSelectDisease }: Predict
     );
   }
   
-  // Ensure confidence is between 0 and 1
-  const safeConfidence = Math.max(0, Math.min(1, topPrediction.probability));
+  // Adjust confidence to be more realistic
+  const adjustedConfidence = adjustConfidence(topPrediction.probability);
   
   return (
     <View style={styles.container}>
@@ -63,7 +64,7 @@ export default function PredictionList({ predictions, onSelectDisease }: Predict
             <ChevronRight size={20} color={colors.textLight} />
           </View>
           
-          <ConfidenceBar confidence={safeConfidence} />
+          <ConfidenceBar confidence={adjustedConfidence} />
           
           <Text style={styles.description} numberOfLines={3}>
             {disease.description}

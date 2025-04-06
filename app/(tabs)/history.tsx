@@ -60,9 +60,10 @@ export default function HistoryScreen() {
         <Image source={{ uri: item.imageUri }} style={styles.resultImage} />
         <View style={styles.resultInfo}>
           <Text style={styles.resultName}>{disease.name}</Text>
+          {/* 
           <Text style={styles.resultConfidence}>
-            Confidence: {Math.round(safeConfidence * 100)}%
-          </Text>
+           Confidence: {Math.round(safeConfidence * 100)}%
+          </Text> */}
           <Text style={styles.resultDate}>{formatDate(item.timestamp)}</Text>
         </View>
       </TouchableOpacity>
