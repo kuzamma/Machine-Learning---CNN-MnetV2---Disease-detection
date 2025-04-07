@@ -3,7 +3,7 @@ import * as FileSystem from 'expo-file-system';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import { diseases } from '@/constants/diseases';
 
-// Define the prediction interface
+//prediction interface
 export interface Prediction {
   className: string;
   probability: number;
@@ -11,8 +11,7 @@ export interface Prediction {
 
 // API configuration
 const API_CONFIG = {
-  // Change this to your actual server URL when deployed
-  baseUrl: 'https://cambie-model.onrender.com/', // Use your computer's local IP when testing
+  baseUrl: 'https://cambie-model.onrender.com/', 
   endpoints: {
     predict: '/predict'
   }
@@ -45,7 +44,7 @@ export default function useTensorflow() {
       
       console.log('Sending image to API server...');
       
-      // Send to your API
+      // Send to API
       const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.predict}`, {
         method: 'POST',
         headers: {
@@ -65,21 +64,21 @@ export default function useTensorflow() {
       const data = await response.json();
       console.log('Received predictions from server:', data.predictions);
       
-      // Ensure we have valid predictions
+      // Ensure valid predictions
       if (!data.predictions || !Array.isArray(data.predictions)) {
         throw new Error('Invalid response format from server');
       }
       
-      // Map the predictions to our format and ensure they're valid
+      // Map the predictions to format and ensure they're valid
       const predictions: Prediction[] = data.predictions.map((pred: any) => ({
         className: pred.className || 'unknown',
         probability: typeof pred.probability === 'number' ? pred.probability : 0
       }));
       
-      // Sort by probability (just in case the server didn't)
+      
       predictions.sort((a, b) => b.probability - a.probability);
       
-      // Take top 3 predictions
+      // Take top 1 predictions
       return predictions.slice(0, 1);
     } catch (err: any) {
       console.error('Prediction error:', err);

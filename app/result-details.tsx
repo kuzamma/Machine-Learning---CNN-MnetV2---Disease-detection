@@ -90,7 +90,7 @@ export default function ResultDetailsScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>Disease information not found</Text>
+          <Text style={styles.errorText}>Disease not found</Text>
           <Button 
             title="Go Back" 
             onPress={() => router.back()} 
@@ -133,12 +133,13 @@ export default function ResultDetailsScreen() {
           <Card style={styles.predictionCard}>
             <View style={styles.predictionHeader}>
               <Text style={styles.diseaseName}>{disease.name}</Text>
-              <Text style={styles.confidenceText}>
+              </View>
+              {/*<Text style={styles.confidenceText}>
                 {Math.round(safeConfidence * 100)}%
               </Text>
             </View>
             
-            <ConfidenceBar confidence={safeConfidence} />
+            <ConfidenceBar confidence={safeConfidence} /> */}
             
             <Text style={styles.diseaseDescription}>
               {disease.description}

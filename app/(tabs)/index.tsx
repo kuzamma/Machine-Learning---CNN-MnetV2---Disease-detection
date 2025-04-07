@@ -19,7 +19,7 @@ export default function HomeScreen() {
         </View>
         <View style={styles.imageContainer}>
           <Image 
-            source={require('@/assets/images/cover.webp')} // Use require for local images
+            source={require('@/assets/images/cover.png')} // Use require for local images
             style={styles.image}
             resizeMode="cover"
           />

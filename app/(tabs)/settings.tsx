@@ -117,7 +117,7 @@ export default function SettingsScreen() {
             name="MobileNetV2-DiseaseDetection"
             version="1.0.0"
             inputShape={[224, 224, 3]}
-            quantized={true}
+            
             accuracyMetrics={{
               precision: 0.89,
               recall: 0.87,

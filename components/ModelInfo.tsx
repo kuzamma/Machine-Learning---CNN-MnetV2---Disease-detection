@@ -7,7 +7,6 @@ interface ModelInfoProps {
   name: string;
   version: string;
   inputShape: number[];
-  quantized: boolean;
   accuracyMetrics: {
     precision: number;
     recall: number;
@@ -19,7 +18,6 @@ export default function ModelInfo({
   name, 
   version, 
   inputShape, 
-  quantized,
   accuracyMetrics 
 }: ModelInfoProps) {
   return (
@@ -41,10 +39,6 @@ export default function ModelInfo({
         <Text style={styles.value}>{inputShape.join(' × ')}</Text>
       </View>
       
-      <View style={styles.infoRow}>
-        <Text style={styles.label}>Quantized:</Text>
-        <Text style={styles.value}>{quantized ? 'Yes' : 'No'}</Text>
-      </View>
       
       <Text style={styles.subtitle}>Accuracy Metrics</Text>
       

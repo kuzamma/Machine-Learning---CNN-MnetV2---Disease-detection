@@ -6,6 +6,7 @@ import Card from './Card';
 import ConfidenceBar from './ConfidenceBar';
 import colors from '@/constants/colors';
 import { ChevronRight } from 'lucide-react-native';
+import { adjustConfidence } from '@/utils/confidence-utils';
 
 interface DiseaseCardProps {
   disease: Disease;
@@ -15,8 +16,8 @@ interface DiseaseCardProps {
 export default function DiseaseCard({ disease, confidence }: DiseaseCardProps) {
   const router = useRouter();
 
-  // Ensure confidence is between 0 and 1
-  const safeConfidence = Math.max(0, Math.min(1, confidence));
+  // Adjust confidence to be more realistic
+  const adjustedConfidence = adjustConfidence(confidence);
 
   const handlePress = () => {
     router.push({
@@ -38,7 +39,7 @@ export default function DiseaseCard({ disease, confidence }: DiseaseCardProps) {
           </View>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{disease.name}</Text>
-            <ConfidenceBar confidence={safeConfidence} />
+            {/*<ConfidenceBar confidence={adjustedConfidence} />*/}
           </View>
         </View>
         

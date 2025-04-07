@@ -121,31 +121,7 @@ python scripts/convert_to_tflite.py
 mv disease_detection_model_quantized.tflite assets/model/
 ```
 
-## Project Structure
 
-```
-disease-detection-app/
-├── app/                    # Expo Router app directory
-│   ├── (tabs)/             # Tab-based navigation
-│   │   ├── index.tsx       # Home screen
-│   │   ├── scan.tsx        # Scan screen
-│   │   ├── history.tsx     # History screen
-│   │   ├── settings.tsx    # Settings screen
-│   │   └── _layout.tsx     # Tab layout
-│   ├── disease-details.tsx # Disease details screen
-│   ├── result-details.tsx  # Scan result details screen
-│   ├── model-info.tsx      # Model information screen
-│   └── _layout.tsx         # Root layout
-├── assets/                 # Static assets
-│   ├── images/             # App images
-│   └── model/              # TensorFlow Lite model
-├── components/             # Reusable components
-├── constants/              # App constants
-├── hooks/                  # Custom hooks
-├── stores/                 # State management
-├── scripts/                # Python scripts for model training
-└── docs/                   # Documentation
-```
 
 ## Troubleshooting
 

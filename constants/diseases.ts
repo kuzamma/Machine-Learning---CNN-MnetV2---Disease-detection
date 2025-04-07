@@ -37,6 +37,19 @@ export interface Disease {
       imageUrl: 'https://images.unsplash.com/photo-1598512199776-e0e1a84efadc?q=80&w=1000'
     },
     
+    {
+      id: 'test',
+      name: 'te',
+      description: 'Algal leaf spot, also known as red rust, is caused by parasitic algae that infect the leaves, twigs, and branches of lanzones trees. It thrives in warm, humid environments and appears as raised, orange to reddish-brown spots on the foliage. While not usually fatal, severe infections can weaken trees and reduce fruit yield.',
+      symptoms: [
+        'Circular orange, reddish-brown, or rust-colored spots on leaves',
+        'Spots may have a velvety or powdery texture',
+        'Yellowing and premature leaf drop in severe cases',
+        'Can spread to twigs and branches, causing cracking and dieback'
+      ],
+      treatment: 'Treatment includes removing affected parts, applying fungicides, improving air circulation, and Trim overcrowded branches to reduce moisture retention.',
+      imageUrl: 'https://images.unsplash.com/photo-1598512199776-e0e1a84efadc?q=80&w=1000'
+    },
     
   ];
   
